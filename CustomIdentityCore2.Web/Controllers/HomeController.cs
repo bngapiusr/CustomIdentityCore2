@@ -27,16 +27,16 @@ namespace CustomIdentityCore2.Web.Controllers
         {
             //find user by name
             // var user = _dbContext.User.Find(1);
-            var user = await _userManager.FindByEmailAsync("geek@devteam.com");
-            if (user == null)
-                user = new User
-                {
-                    UserName = "geek@devteam.com",
-                    Email = "geek@devteam.com"
-                    //PasswordHash = "P@ssw0r"
+            //var user = await _userManager.FindByEmailAsync("geek@devteam.com");
+            //if (user == null)
+            //    user = new User
+            //    {
+            //        UserName = "geek@devteam.com",
+            //        Email = "geek@devteam.com"
+            //        //PasswordHash = "P@ssw0r"
 
-                };
-            await _userManager.CreateAsync(user, "P@ssw0r");
+            //    };
+            //await _userManager.CreateAsync(user, "P@ssw0r");
             //  return NotFound();
 
             //remove user from role
