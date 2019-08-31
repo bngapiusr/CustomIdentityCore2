@@ -76,8 +76,11 @@ namespace CustomIdentityCore2.Web
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-
-            SeedData.CreateRoles(serviceProvider, configuration).Wait();
+            //CustomIdentityCoreDbContext _dbContext = null;
+            //if (_dbContext.Role.Any())
+            //{
+                //SeedData.CreateRoles(serviceProvider, configuration).Wait();
+            //}
         }
     }
 }
