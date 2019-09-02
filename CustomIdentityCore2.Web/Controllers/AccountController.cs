@@ -75,7 +75,7 @@ namespace CustomIdentityCore2.Web.Controllers
                 AddErrors(result);
             }
 
-            // If we ot this far, something failed, redisplay form
+            // If we got this far, something failed, redisplay form
             return View(model);
         }
 
