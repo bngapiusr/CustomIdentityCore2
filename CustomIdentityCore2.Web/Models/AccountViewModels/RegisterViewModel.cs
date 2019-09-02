@@ -10,7 +10,7 @@ namespace CustomIdentityCore2.Web.Models.AccountViewModels
         public string FirstName { get; set; }
 
         [Required]
-        [StringLength(1, ErrorMessage = "The {0} must be at least {0} and at max {1} characters long.", MinimumLength = 6)]
+        [StringLength(1, ErrorMessage = "The {0} must be at least {0} and at max {1} characters long.", MinimumLength = 0)]
         [Display(Name = "Middle Initial")]
         public string MiddleInitial { get; set; }
 
