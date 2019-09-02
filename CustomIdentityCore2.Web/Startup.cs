@@ -76,6 +76,7 @@ namespace CustomIdentityCore2.Web
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
             //CustomIdentityCoreDbContext _dbContext = null;
             //if (_dbContext.Role.Any())
             //{
