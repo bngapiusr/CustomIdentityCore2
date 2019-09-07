@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CustomIdentityCore2.Web.Models;
 
 namespace CustomIdentityCore2.Web.Services
 {
@@ -8,7 +9,7 @@ namespace CustomIdentityCore2.Web.Services
         public string Name { get; set; }
         public string DisplayName { get; set; }
         public string AreaName { get; set; }
-        public IEnumerable<MvcControllerInfo> Actions { get; set; }
+        public IEnumerable<MvcActionInfo> Actions { get; set; }
 
     }
 }
