@@ -6,6 +6,7 @@ namespace CustomIdentityCore2.Web.Models
 {
     public class RoleViewModel
     {
+        public int RoleId { get; set; }
         [Required]
         [StringLength(256, ErrorMessage = "The {0} must be at least {2} characters long.")]
         public string Name { get; set; }
