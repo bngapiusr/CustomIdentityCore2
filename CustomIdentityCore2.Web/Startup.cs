@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using CustomIdentityCore2.Data;
 using CustomIdentityCore2.Entities;
+using CustomIdentityCore2.Web.Models;
+using CustomIdentityCore2.Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -47,7 +49,12 @@ namespace CustomIdentityCore2.Web
             services.AddTransient<IUserStore<User>, CustomUserStore>();
             services.AddTransient<IRoleStore<Role>, CustomRoleStore>();
 
+            // Add app services
+            //services.AddTransient<IMvcControllerDiscovery, MvcControllerDiscovery>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddTransient<IMvcControllerDiscovery, MvcControllerDiscovery>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

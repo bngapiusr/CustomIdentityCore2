@@ -1,24 +1,87 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using CustomIdentityCore2.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Extensions.Internal;
 
 namespace CustomIdentityCore2.Data
 {
-    public class CustomRoleStore : IRoleStore<Role>
+    public class CustomRoleStore : IRoleStore<Role>, IQueryableRoleStore<Role> //where TRole : Role
     {
 
         private bool _dispose;
         private CustomIdentityCoreDbContext _dbcontext;
+
+
         public CustomRoleStore(CustomIdentityCoreDbContext dbContext)
         {
             _dbcontext = dbContext;
         }
 
         #region " --- Role --- " 
+
+
+        public virtual IQueryable<Role> Roles
+        {
+            get
+            {
+                //var queryableStore =  as IQueryableRoleStore<Role>;
+
+                var roles = _dbcontext.Role;
+
+                if (roles == null)
+                {
+                    throw new ArgumentNullException(nameof(roles));
+                }
+                return roles;
+            }
+        }
+
+        ////public virtual IQueryable<Role> Roles
+        ////{
+        ////    get
+        ////    {
+        ////        //var queryableStore =  as IQueryableRoleStore<Role>;
+
+        ////        var roles =  _dbcontext.Role.ToListAsync();
+
+        ////        if (roles == null)
+        ////        {
+        ////            throw new ArgumentNullException(nameof(roles));
+        ////        }
+        ////        return roles;
+        ////    }
+        ////}
+
+
+        //public async Task<IQueryable<Role>> GetRoles()
+        //{
+        //    List<Role> result = (List<Role>)Activator.CreateInstance(typeof(List<Role>));
+        //    var roles = await _dbcontext.Role.ToListAsync();
+        //    foreach (var role in roles)
+        //    {
+        //        Role item = (Role)Activator.CreateInstance(typeof(Role));
+        //        item.RoleId = role.RoleId;
+        //        item.Name = role.Name;
+        //        item.Access = role.Access;
+        //        result.Add(item);
+        //    }
+        //    return result.AsQueryable();
+        //}
+
+        //public IQueryable<Role> Roles => throw new NotImplementedException();
+
+
+        //IQueryable<Role> IQueryableRoleStore<Role>.Roles { get; }
+
+        //IQueryable<Role> IQueryableRoleStore<Role> Roles() {
+        //    throw new NotImplementedException();
+        //}
+
         public async Task<IdentityResult> CreateAsync(Role role, CancellationToken cancellationToken = default(CancellationToken))
         {
             cancellationToken.ThrowIfCancellationRequested();

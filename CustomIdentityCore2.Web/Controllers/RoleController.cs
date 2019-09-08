@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using CustomIdentityCore2.Entities;
 using CustomIdentityCore2.Web.Models;
 using CustomIdentityCore2.Web.Services;
@@ -23,9 +24,27 @@ namespace CustomIdentityCore2.Web.Controllers
             _roleManager = roleManager;
         }
         // GET : Role
-        public async Task<IActionResult> Index()
+        //public async Task<IActionResult> Index()
+
+        public IActionResult Index()
         {
-            var roles = await _roleManager.Roles.ToListAsync();
+            var roles =  _roleManager.Roles.ToList();
+            //var roles = await Queryable.AsQueryable(_roleManager.Roles).ToListAsync();
+            //var model = new RoleViewModel();
+            if (roles == null)
+            {
+                return NotFound();
+            }
+            //foreach (var role in roles)
+            //{
+
+            //    model.RoleId = role.RoleId;
+            //    model.Name = role.Name;
+            //    model.Access = role.Access;
+
+            //}
+
+
             return View(roles);
         }
 
@@ -46,7 +65,7 @@ namespace CustomIdentityCore2.Web.Controllers
 
             //var role = new Role { Name = viewModel.Name};
             var role = new Role(viewModel.Name) {Name = viewModel.Name};
-            if (viewModel.SelectedControllers != null && viewModel.SelectedControllers.Any())
+            if (viewModel.SelectedControllers != null && EnumerableExtensions.Any(viewModel.SelectedControllers))
             {
                 foreach (var controller in viewModel.SelectedControllers)
                 {
@@ -114,7 +133,7 @@ namespace CustomIdentityCore2.Web.Controllers
             }
 
             role.Name = viewModel.Name;
-            if (viewModel.SelectedControllers != null && viewModel.SelectedControllers.Any())
+            if (viewModel.SelectedControllers != null && EnumerableExtensions.Any(viewModel.SelectedControllers))
             {
                 foreach (var controller in viewModel.SelectedControllers)
                 {

@@ -3,14 +3,16 @@ using CustomIdentityCore2.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CustomIdentityCore2.Data.Migrations
 {
     [DbContext(typeof(CustomIdentityCoreDbContext))]
-    partial class CustomIdentityCoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190907234619_AddAccessProperty")]
+    partial class AddAccessProperty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
