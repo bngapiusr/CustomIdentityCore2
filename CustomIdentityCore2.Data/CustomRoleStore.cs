@@ -25,21 +25,38 @@ namespace CustomIdentityCore2.Data
         #region " --- Role --- " 
 
 
+
         public virtual IQueryable<Role> Roles
         {
-            get
+
+            get {
+
+                ThrowIfDisposed();
+
+                IQueryable<Role> query = _dbcontext.Set<Role>();
+            if (query==null)
             {
-                //var queryableStore =  as IQueryableRoleStore<Role>;
-
-                var roles = _dbcontext.Role;
-
-                if (roles == null)
-                {
-                    throw new ArgumentNullException(nameof(roles));
-                }
-                return roles;
+                throw new ArgumentNullException(nameof(query));
+            }
+            return query;
             }
         }
+
+        //public virtual IQueryable<Role> Roles
+        //{
+        //    get
+        //    {
+        //        //var queryableStore =  as IQueryableRoleStore<Role>;
+
+        //        var roles = _dbcontext.Role;
+
+        //        if (roles == null)
+        //        {
+        //            throw new ArgumentNullException(nameof(roles));
+        //        }
+        //        return roles;
+        //    }
+        //}
 
         ////public virtual IQueryable<Role> Roles
         ////{
