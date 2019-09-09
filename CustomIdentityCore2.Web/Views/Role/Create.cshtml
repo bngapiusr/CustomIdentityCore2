@@ -1,0 +1,116 @@
+﻿@using System.Collections
+@using CustomIdentityCore2.Web.Services
+@model RoleViewModel
+
+@{
+    ViewData["Title"] = "Role ";
+    var controllers = (IEnumerable<MvcControllerInfo>)ViewData["Controllers"];
+}
+
+<h2>Create Role</h2>
+
+<hr />
+
+@*
+    ZenCoding
+
+    div.row>div.col-md-6>form.form-horizontal>div.text-danger+div.form-group
+
+    div.row>div.col-md-6>form.form-horizontal>div.text-danger+div.form-group+label.control-label>div.col-md-10+input.form-control+span.text-danger
+*@
+
+
+    @*div.row>div.col-md-6>form.form-horizontal>div.text-danger+div.form-group+label.control-label>div.col-md-10+input.form-control+span.text-danger
+
+
+    div.row>div.col-md-6>form.form-horizontal>div.text-danger+div.form-group>label.control-label+div.col-md-10>input.form-control+span.text-danger*@
+
+<div class="row">
+    <div class="col-md-6">
+        <form class="form-horizontal">
+            <div class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label"></label>
+                <div class="col-md-10">
+                    <input type="" value="" class="form-control" />
+                    <span class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-3 control-label">Access List</label>
+                <div class="col-md-9">
+                    <ol id="tree">
+                        @foreach (var controller in controllers)
+                        {
+                            var name = controller.DisplayName ?? controller.Name;
+
+                            <li class="controller" data-value="@controller.Name">
+                                <input type="hidden" class="area" value="@controller.AreaName" />
+                                @name
+                                @if (controller.Actions.Any())
+                                {
+                                    <ul>
+                                        @foreach (var action in controller.Actions)
+                                        {
+                                            name = action.DisplayName ?? action.Name;
+                                            <li data-value="@action.Name">@name</li>
+                                        }
+                                    </ul>
+                                }
+                            </li>
+                        }
+                    </ol>
+                </div>
+            </div>
+            <div class="form-group"></div>
+            <input type="submit" value="Create" class="btn btn-default" />
+        </form>
+    </div>
+</div>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/lib/jquery-qubit/jquery.qubit.js"></script>
+    <script src="~/lib/jquery-bonsai/jquery.bonsai.js"></script>
+    <script>
+        $(function () {
+            $('#tree').bonsai({
+                expandAll: false,
+                checkboxes: true,
+                createInputs: 'checkbox'
+            });
+
+            $('form').submit(function () {
+                var i = 0, j = 0;
+                $('.controller > input[type="checkbox"]:checked, .controller > input[type="checkbox"]:indeterminate').each(function () {
+                    var controller = $(this);
+                    if ($(controller).prop('indeterminate')) {
+                        $(controller).prop("checked", true);
+                    }
+                    var controllerName = 'SelectedControllers[' + i + ']';
+                    $(controller).prop('name', controllerName + '.Name');
+
+                    var area = $(controller).next().next();
+                    $(area).prop('name', controllerName + '.AreaName');
+
+                    $('ul > li > input[type="checkbox"]:checked', $(controller).parent()).each(function () {
+                        var action = $(this);
+                        var actionName = controllerName + '.Actions[' + j + '].Name';
+                        $(action).prop('name', actionName);
+                        j++;
+                    });
+                    j = 0;
+                    i++;
+                });
+
+                return true;
+            });
+        });
+    </script>
+}
+

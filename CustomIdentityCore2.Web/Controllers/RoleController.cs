@@ -49,6 +49,7 @@ namespace CustomIdentityCore2.Web.Controllers
         }
 
        // Get : Role/Crate
+       [HttpGet]
         public ActionResult Create()
         {
             ViewData["Controllers"] = _mvcControllerDiscovery.GetControllers();
