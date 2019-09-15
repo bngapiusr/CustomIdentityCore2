@@ -102,8 +102,8 @@ namespace CustomIdentityCore2.Web.Controllers
             }
 
             var userRoles = await _userManager.GetRolesAsync(user);
-            //await _userManager.RemoveFromRoleAsync(user, userRoles);
-            //await _userManager.AddToRoleAsync(user, viewModel.Roles);
+            await _userManager.RemoveFromRolesAsync(user, userRoles);
+            await _userManager.AddToRolesAsync(user, viewModel.Roles);
 
             return RedirectToAction("Index");
 
